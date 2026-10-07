@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <CppWinRTOptimized>true</CppWinRTOptimized>
+    <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
+    <MinimalCoreWin>true</MinimalCoreWin>
+    <ProjectGuid>{6F1B3C2A-4D7E-4C59-9B0E-7A2D51C3E8F4}</ProjectGuid>
+    <ProjectName>Talmon</ProjectName>
+    <RootNamespace>Talmon</RootNamespace>
+    <TargetName>$(RootNamespace)</TargetName>
+    <DefaultLanguage>es-ES</DefaultLanguage>
+    <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>false</AppContainerApplication>
+    <AppxPackage>false</AppxPackage>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
+    <UseWinUI>true</UseWinUI>
+    <WinUISDKReferences>false</WinUISDKReferences>
+    <EnableMsixTooling>false</EnableMsixTooling>
+    <!-- Unpackaged app that carries the Windows App SDK runtime next to the executable. -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <!-- PackageReference in a "Windows Store" type vcxproj: skip the legacy UAP asset resolution. -->
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+  </PropertyGroup>
+  <PropertyGroup Label="Talmon">
+    <!-- Core libraries are built by CMake (see CMakePresets.json) into build\x64\out\<Configuration>. -->
+    <TalmonRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\..\'))</TalmonRoot>
+    <TalmonCoreOutDir>$(TalmonRoot)build\x64\out\$(Configuration)\</TalmonCoreOutDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' &gt;= '18.0'">v145</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' &lt; '18.0'">v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <DesktopCompatible>true</DesktopCompatible>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir>$(TalmonRoot)build\app\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(TalmonRoot)build\app\obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level4</WarningLevel>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj /utf-8 /Zc:__cplusplus</AdditionalOptions>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(TalmonRoot)src\domain\include;$(TalmonRoot)src\application\include;$(TalmonRoot)src\infrastructure\settings\include;$(TalmonRoot)src\infrastructure\backend\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(TalmonCoreOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>talmon_application.lib;talmon_settings.lib;talmon_backend.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CppWinRT" Version="2.0.250303.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.5.1" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2705" />
+    <PackageReference Include="Microsoft.Windows.ImplementationLibrary" Version="1.0.260126.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="AppServices.h" />
+    <ClInclude Include="UiAsync.h" />
+    <ClInclude Include="IMonitorView.h" />
+    <ClInclude Include="App.xaml.h">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="MainWindow.xaml.h">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="DashboardPage.xaml.h">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="ServicesPage.xaml.h">
+      <DependentUpon>ServicesPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="ProcessesPage.xaml.h">
+      <DependentUpon>ProcessesPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="LogsPage.xaml.h">
+      <DependentUpon>LogsPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="SettingsPage.xaml.h">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="NodeItem.h">
+      <DependentUpon>NodeItem.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="ServiceItem.h">
+      <DependentUpon>ServiceItem.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="ProcessItem.h">
+      <DependentUpon>ProcessItem.idl</DependentUpon>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+    <Page Include="MainWindow.xaml" />
+    <Page Include="DashboardPage.xaml" />
+    <Page Include="ServicesPage.xaml" />
+    <Page Include="ProcessesPage.xaml" />
+    <Page Include="LogsPage.xaml" />
+    <Page Include="SettingsPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="AppServices.cpp" />
+    <ClCompile Include="App.xaml.cpp">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MainWindow.xaml.cpp">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="DashboardPage.xaml.cpp">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="ServicesPage.xaml.cpp">
+      <DependentUpon>ServicesPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="ProcessesPage.xaml.cpp">
+      <DependentUpon>ProcessesPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="LogsPage.xaml.cpp">
+      <DependentUpon>LogsPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="SettingsPage.xaml.cpp">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="NodeItem.cpp">
+      <DependentUpon>NodeItem.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="ServiceItem.cpp">
+      <DependentUpon>ServiceItem.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="ProcessItem.cpp">
+      <DependentUpon>ProcessItem.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="MainWindow.idl">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="DashboardPage.idl">
+      <SubType>Code</SubType>
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="ServicesPage.idl">
+      <SubType>Code</SubType>
+      <DependentUpon>ServicesPage.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="ProcessesPage.idl">
+      <SubType>Code</SubType>
+      <DependentUpon>ProcessesPage.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="LogsPage.idl">
+      <SubType>Code</SubType>
+      <DependentUpon>LogsPage.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="SettingsPage.idl">
+      <SubType>Code</SubType>
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="NodeItem.idl" />
+    <Midl Include="ServiceItem.idl" />
+    <Midl Include="ProcessItem.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Infrastructure (gRPC, protobuf, OpenSSL, yaml-cpp) lives in this DLL. -->
+    <CopyFileToFolders Include="$(TalmonCoreOutDir)talmon_backend.dll">
+      <DestinationFolders>$(OutDir)</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <Target Name="TalmonCheckCoreLibraries" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(TalmonCoreOutDir)talmon_backend.lib')"
+           Text="Core libraries not found in $(TalmonCoreOutDir). Build them first: cmake --preset windows-x64 &amp;&amp; cmake --build --preset $(Configuration.ToLower()) (or run build.ps1)." />
+  </Target>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

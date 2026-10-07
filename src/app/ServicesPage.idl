@@ -1,0 +1,8 @@
+namespace Talmon
+{
+    [default_interface]
+    runtimeclass ServicesPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ServicesPage();
+    }
+}

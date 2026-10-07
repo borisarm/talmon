@@ -1,0 +1,22 @@
+namespace Talmon
+{
+    // Read-only presentation snapshot of one node, shown as a card on the dashboard.
+    runtimeclass NodeItem
+    {
+        String Title{ get; };
+        String Address{ get; };
+        String Version{ get; };
+        String Platform{ get; };
+        String Uptime{ get; };
+        String CpuText{ get; };
+        Double CpuPercent{ get; };
+        String MemoryText{ get; };
+        Double MemoryPercent{ get; };
+        String LoadText{ get; };
+        String ServicesText{ get; };
+        String StatusText{ get; };
+        Microsoft.UI.Xaml.Media.Brush StatusBrush{ get; };
+        String ErrorText{ get; };
+        Microsoft.UI.Xaml.Visibility ErrorVisibility{ get; };
+    }
+}

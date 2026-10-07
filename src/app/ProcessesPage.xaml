@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Talmon.ProcessesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Talmon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="420" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="FilterBox" PlaceholderText="Filtrar por comando, argumentos o PID"
+                     TextChanged="OnFilterChanged" />
+            <ComboBox Grid.Column="1" x:Name="SortBox" MinWidth="170" SelectedIndex="0"
+                      SelectionChanged="OnSortChanged">
+                <x:String>Memoria (RSS)</x:String>
+                <x:String>Tiempo de CPU</x:String>
+                <x:String>Hilos</x:String>
+                <x:String>PID</x:String>
+                <x:String>Comando</x:String>
+            </ComboBox>
+            <ToggleButton Grid.Column="2" x:Name="DescendingToggle" IsChecked="True" AutomationProperties.Name="Orden descendente"
+                          Click="OnSortDirectionClicked" ToolTipService.ToolTip="Orden descendente">
+                <SymbolIcon Symbol="Sort" />
+            </ToggleButton>
+            <TextBlock Grid.Column="3" x:Name="CountText" HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Style="{StaticResource LabelTextStyle}" />
+        </Grid>
+
+        <Grid Grid.Row="1" Padding="16,0" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="PID" Style="{StaticResource ColumnHeaderTextStyle}" />
+            <TextBlock Grid.Column="1" Text="EST." Style="{StaticResource ColumnHeaderTextStyle}" />
+            <TextBlock Grid.Column="2" Text="HILOS" Style="{StaticResource ColumnHeaderTextStyle}" />
+            <TextBlock Grid.Column="3" Text="CPU" Style="{StaticResource ColumnHeaderTextStyle}" />
+            <TextBlock Grid.Column="4" Text="RSS" Style="{StaticResource ColumnHeaderTextStyle}" />
+            <TextBlock Grid.Column="5" Text="COMANDO" Style="{StaticResource ColumnHeaderTextStyle}" />
+            <TextBlock Grid.Column="6" Text="ARGUMENTOS" Style="{StaticResource ColumnHeaderTextStyle}" />
+        </Grid>
+
+        <ListView Grid.Row="2" x:Name="ProcessList" SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:ProcessItem">
+                    <Grid ColumnSpacing="12" Padding="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Pid}" FontFamily="{StaticResource MonospaceFont}" />
+                        <TextBlock Grid.Column="1" Text="{x:Bind State}" />
+                        <TextBlock Grid.Column="2" Text="{x:Bind Threads}" />
+                        <TextBlock Grid.Column="3" Text="{x:Bind CpuTime}" />
+                        <TextBlock Grid.Column="4" Text="{x:Bind Memory}" />
+                        <TextBlock Grid.Column="5" Text="{x:Bind Command}" FontWeight="SemiBold"
+                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Grid.Column="6" Text="{x:Bind Args}" TextTrimming="CharacterEllipsis"
+                                   FontFamily="{StaticResource MonospaceFont}" FontSize="12"
+                                   ToolTipService.ToolTip="{x:Bind Args}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

@@ -1,0 +1,14 @@
+# Build outputs
+/build/
+/out/
+/vcpkg_installed/
+src/app/obj/
+src/app/Generated Files/
+
+# Visual Studio
+.vs/
+*.user
+*.aps
+*.VC.db
+*.VC.opendb
+CMakeUserPresets.json

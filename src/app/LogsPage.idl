@@ -1,0 +1,8 @@
+namespace Talmon
+{
+    [default_interface]
+    runtimeclass LogsPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        LogsPage();
+    }
+}

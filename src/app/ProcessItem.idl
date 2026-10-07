@@ -1,0 +1,13 @@
+namespace Talmon
+{
+    runtimeclass ProcessItem
+    {
+        String Pid{ get; };
+        String State{ get; };
+        String Threads{ get; };
+        String CpuTime{ get; };
+        String Memory{ get; };
+        String Command{ get; };
+        String Args{ get; };
+    }
+}

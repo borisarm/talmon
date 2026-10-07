@@ -1,0 +1,12 @@
+namespace Talmon
+{
+    runtimeclass ServiceItem
+    {
+        String Id{ get; };
+        String State{ get; };
+        String Condition{ get; };
+        String Message{ get; };
+        String LastEvent{ get; };
+        Microsoft.UI.Xaml.Media.Brush StatusBrush{ get; };
+    }
+}

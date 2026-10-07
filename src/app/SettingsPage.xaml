@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Talmon.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Talmon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <ScrollViewer>
+        <StackPanel Spacing="16" MaxWidth="760" HorizontalAlignment="Left">
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Acceso al clúster" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <TextBlock Style="{StaticResource LabelTextStyle}" TextWrapping="Wrap"
+                               Text="Talmon usa el mismo talosconfig que talosctl (mTLS contra apid, puerto 50000). Por defecto se busca en %TALOSCONFIG% o en %USERPROFILE%\.talos\config." />
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ConfigPathBox" Header="Ruta del talosconfig" />
+                        <Button Grid.Column="1" Content="Examinar…" VerticalAlignment="Bottom" Click="OnBrowseClicked" />
+                        <Button Grid.Column="2" Content="Leer contextos" VerticalAlignment="Bottom" Click="OnInspectClicked" />
+                    </Grid>
+                    <ComboBox x:Name="ContextBox" Header="Contexto" MinWidth="260" PlaceholderText="Selecciona un contexto" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Monitorización" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <StackPanel Orientation="Horizontal" Spacing="16">
+                        <NumberBox x:Name="RefreshBox" Header="Intervalo de refresco (s)" Minimum="1" Maximum="3600"
+                                   SpinButtonPlacementMode="Inline" SmallChange="1" LargeChange="10" MinWidth="200" />
+                        <NumberBox x:Name="TimeoutBox" Header="Timeout por llamada (s)" Minimum="1" Maximum="120"
+                                   SpinButtonPlacementMode="Inline" SmallChange="1" LargeChange="5" MinWidth="200" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button x:Name="ConnectButton" Style="{StaticResource AccentButtonStyle}" Click="OnConnectClicked"
+                        AutomationProperties.Name="Guardar y conectar">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <SymbolIcon Symbol="Link" />
+                        <TextBlock Text="Guardar y conectar" />
+                    </StackPanel>
+                </Button>
+                <TextBlock x:Name="ConnectionText" VerticalAlignment="Center" Style="{StaticResource LabelTextStyle}" />
+            </StackPanel>
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Acerca de" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    <TextBlock Style="{StaticResource LabelTextStyle}" TextWrapping="Wrap"
+                               Text="Talmon 0.1 · WinUI 3 + C++/WinRT · cliente gRPC nativo del API de Talos (machine.MachineService, protos de Talos v1.14)." />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

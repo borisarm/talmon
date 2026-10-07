@@ -1,0 +1,8 @@
+namespace Talmon
+{
+    [default_interface]
+    runtimeclass ProcessesPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ProcessesPage();
+    }
+}

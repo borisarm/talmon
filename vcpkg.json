@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "talmon",
+  "version-string": "0.1.0",
+  "description": "Talos Linux monitor for Windows (WinUI 3 + C++/WinRT + gRPC)",
+  "dependencies": [
+    "grpc",
+    {
+      "name": "grpc",
+      "host": true,
+      "features": [ "codegen" ]
+    },
+    "protobuf",
+    {
+      "name": "protobuf",
+      "host": true
+    },
+    "yaml-cpp",
+    "gtest"
+  ]
+}
