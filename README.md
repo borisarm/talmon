@@ -6,6 +6,8 @@ mutual TLS with the credentials from your `talosconfig`). It does not use `talos
 
 I've built that project to monitor my homelab, a 3 node cluster running TalosOS on the 3 cheapest MiniPCs I could find.
 
+And what do I use that kubernetes cluster? Well, I don't have all my projects in GitHub and the one I'm building on the custer is not ready to go public. Not that I'm protecting anything... is just that I'm shy.
+
 | Page | Talos API calls |
 |---|---|
 | **Panel** – one card per node: version, platform, uptime, CPU %, memory, load, services | `Version`, `Hostname`, `Memory`, `LoadAvg`, `SystemStat`, `ServiceList` |
