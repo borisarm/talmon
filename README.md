@@ -4,6 +4,8 @@ Native Windows desktop app (WinUI 3 + C++/WinRT) that monitors [Talos Linux](htt
 clusters by calling the **Talos gRPC API directly** (`machine.MachineService` on apid, port 50000,
 mutual TLS with the credentials from your `talosconfig`). It does not use `talosctl`.
 
+I've built that project to monitor my homelab, a 3 node cluster running TalosOS on the 3 cheapest MiniPCs I could find.
+
 | Page | Talos API calls |
 |---|---|
 | **Panel** – one card per node: version, platform, uptime, CPU %, memory, load, services | `Version`, `Hostname`, `Memory`, `LoadAvg`, `SystemStat`, `ServiceList` |
